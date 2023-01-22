@@ -24,5 +24,13 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	UPROPERTY(EditDefaultsOnly)
+	float InteractDistance = 400;
+
+	
+
+private:
+
+	FHitResult InteractionTrace();
+	APlayerController* Controller;
 };
