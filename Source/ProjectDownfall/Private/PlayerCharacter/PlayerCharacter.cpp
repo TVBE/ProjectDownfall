@@ -13,10 +13,6 @@ APlayerCharacter::APlayerCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	PlayerEventComponent = CreateDefaultSubobject<UPlayerEventComponent>(TEXT("Player Event Component"));
-	PlayerAudioComponent = CreateDefaultSubobject<UPlayerCharacterAudioComponent>(TEXT("Player Audio Component"));
-	PlayerVFXComponent = CreateDefaultSubobject<UPlayerCharacterVFXComponent>(TEXT("Player VFX Component"));
-	
 }
 
 // Called when the game starts or when spawned
