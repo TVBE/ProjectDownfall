@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "HeroCharacterConfiguration.generated.h"
+#include "PlayerCharacterConfiguration.generated.h"
 
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FHeroCharacterConfiguration
+struct FPlayerCharacterConfiguration
 {
 	GENERATED_USTRUCT_BODY()
 
@@ -82,7 +82,7 @@ struct FHeroCharacterConfiguration
 	
 
 	/** Constructor with default values. */
-	 FHeroCharacterConfiguration()
+	 FPlayerCharacterConfiguration()
 	 {
 	 	MovementSpeed = 300.0;
 	 	Acceleration = 200.0;

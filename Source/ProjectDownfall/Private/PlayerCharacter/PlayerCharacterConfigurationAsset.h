@@ -4,20 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "HeroCharacterConfiguration.h"
-#include "HeroCharacterConfigurationAsset.generated.h"
+#include "PlayerCharacterConfiguration.h"
+#include "PlayerCharacterConfigurationAsset.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROJECTDOWNFALL_API UHeroCharacterConfigurationAsset : public UDataAsset
+class PROJECTDOWNFALL_API UPlayerCharacterConfigurationAsset : public UDataAsset
 {
 	GENERATED_BODY()
 
 public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Configuration)
-	FHeroCharacterConfiguration Configuration;
+	FPlayerCharacterConfiguration Configuration;
 	
 };
