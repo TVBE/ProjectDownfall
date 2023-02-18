@@ -7,7 +7,7 @@
 #include "PlayerCharacterVFXComponent.generated.h"
 
 
-UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(Blueprintable, BlueprintType, ClassGroup = (PlayerCharacter), meta = (BlueprintSpawnableComponent) )
 class UPlayerCharacterVFXComponent : public UActorComponent
 {
 	GENERATED_BODY()

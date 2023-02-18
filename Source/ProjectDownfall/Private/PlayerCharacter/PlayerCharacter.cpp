@@ -6,7 +6,6 @@
 #include "NavigationSystemTypes.h"
 #include "PlayerCharacterAudioComponent.h"
 #include "PlayerCharacterVFXComponent.h"
-#include "PlayerEventComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -19,7 +18,6 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame

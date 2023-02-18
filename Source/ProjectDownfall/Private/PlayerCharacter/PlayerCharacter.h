@@ -6,15 +6,15 @@
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
-UCLASS(Blueprintable)
+UCLASS(Abstract, Blueprintable, BlueprintType, ClassGroup = (PlayerCharacter))
 class APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 protected:
 	/** The EventComponent for the player. */
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = Components, Meta = (DisplayName = "Event Component"))
-	class UPlayerEventComponent* PlayerEventComponent {nullptr};
+	// UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = Components, Meta = (DisplayName = "Event Component"))
+	// class UPlayerEventComponent* PlayerEventComponent {nullptr};
 
 	/** The AudioComponent for the player. */
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere,  Category = Components, Meta = (DisplayName = "Audio Component"))
