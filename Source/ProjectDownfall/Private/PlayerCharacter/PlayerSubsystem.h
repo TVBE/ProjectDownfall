@@ -23,7 +23,7 @@ private:
 	APlayerCharacter* PlayerCharacter;
 
 	/** Pointer to the player character controller assigned to the player character in the level. */
-	UPROPERTY(BlueprintGetter = GetPlayerCharacterController, Category = "PlayerSubsystem", Meta = (DisplayName = "Player Character"))
+	UPROPERTY(BlueprintGetter = GetPlayerCharacterController, Category = "PlayerSubsystem", Meta = (DisplayName = "Player Character Controller"))
 	APlayerCharacterController* PlayerCharacterController;
 
 public:
