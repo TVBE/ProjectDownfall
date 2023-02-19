@@ -33,6 +33,19 @@ public:
 	/** Registers a player character controller to the subsystem. */
 	void RegisterController(APlayerCharacterController* Controller);
 
+	/** Assigns a new action script to the controller. This will notify the currently active script that it should stop processing input and release itself.
+	 *	@Brief	Assigns a new action script to the controller.
+	 *	@Script the ActionScript object to assign to the controller.
+	 *	@ForceOverride If true, the new action script will instantly override the currently active action script.
+	 *	@Return Whether the new action script was successfully assigned or not.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "PlayerSubsystem", Meta = (DisplayName = "Assign Action Script To Player"))
+	void AssignActionScript(TSubclassOf<UPlayerActionScript> Script, const bool ForceOverride);
+
+	/** Returns the current active action script of the player. */
+	UFUNCTION(BlueprintPure, Category = "PlayerSubsystem", Meta = (DisplayName = "Get Current Active Action Script"))
+	UPlayerActionScript* GetCurrentActiveActionScript();
+	
 	/** Enables or disables user input for the player character controller. */
 	UFUNCTION(BlueprintCallable, Category = "PlayerSubsystem", Meta = (DisplayName = "Set User Input Enabled"))
 	void SetUserInputEnabled(const bool Value);
