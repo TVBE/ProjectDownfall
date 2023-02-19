@@ -53,7 +53,7 @@ public:
 	 *	@Return Whether the new action script was successfully assigned or not.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "PlayerController", Meta = (DisplayName = "Assign Action Script"))
-	bool AssignActionScript(UPlayerActionScript* Script, const bool ForceOverride);
+	bool AssignActionScript(TSubclassOf<UPlayerActionScript> Script, const bool ForceOverride);
 	
 protected:
 	// Called when the game starts.
@@ -101,5 +101,9 @@ public:
 	/** Returns the currently pending action script. */
 	UFUNCTION(BlueprintGetter, Category = "PlayerController", Meta = (DisplayName = "Pending Action Script"))
 	FORCEINLINE UPlayerActionScript* GetPendingActionScript() const { return PendingActionScript; }
-	
+
+private:
+	/** Handles the script release callback from an action script. */
+	UFUNCTION()
+	void HandleScriptRelease();
 };

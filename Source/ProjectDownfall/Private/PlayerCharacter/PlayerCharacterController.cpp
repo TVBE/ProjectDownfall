@@ -78,13 +78,17 @@ void APlayerCharacterController::HandleCReleased()
 	ActionScript->EventC(false);
 }
 
-bool APlayerCharacterController::AssignActionScript(UPlayerActionScript* Script, const bool ForceOverride)
+
+
+bool APlayerCharacterController::AssignActionScript(TSubclassOf<UPlayerActionScript> Script, const bool ForceOverride)
 {
 	if(!Script)
 	{
-		UE_LOG(LogPlayerCharacterController, Warning, TEXT("Passed a nullptr in AssignActionScript()."))
 		return false;
 	}
+
+	PendingActionScript = NewObject<UPlayerActionScript>(this, Script);
+	
 	if(ForceOverride)
 	{
 		if(ActionScript)
@@ -92,14 +96,31 @@ bool APlayerCharacterController::AssignActionScript(UPlayerActionScript* Script,
 			ActionScript->ConditionalBeginDestroy();
 			ActionScript = nullptr;
 		}
-		ActionScript = Script;
+		ActionScript = PendingActionScript;
+		PendingActionScript = nullptr;
 
 		const FString ScriptName {Script->GetName()};
 		UE_LOG(LogPlayerCharacterController, Log, TEXT("Succesfully asigned ActionScript %s to PlayerController."), *ScriptName)
 
 		return true;
 	}
+
+	if(ActionScript)
+	{
+		ActionScript->StopActionScript();
+		ActionScript->OnScriptRelease.AddDynamic(this, &APlayerCharacterController::HandleScriptRelease);
+	}
+	
 	return false;
+}
+
+void APlayerCharacterController::HandleScriptRelease()
+{
+	if(PendingActionScript)
+	{
+		ActionScript = PendingActionScript;
+		PendingActionScript = nullptr;
+	}
 }
 
 void APlayerCharacterController::BeginPlay()
