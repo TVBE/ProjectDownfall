@@ -30,6 +30,9 @@ public:
 	APlayerCharacter();
 
 protected:
+	// Called when the actor is constructed and all properties have been initialized.
+	virtual void OnConstruction(const FTransform& Transform) override;
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 

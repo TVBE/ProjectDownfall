@@ -53,7 +53,7 @@ public:
 	 *	@Return Whether the new action script was successfully assigned or not.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "PlayerController", Meta = (DisplayName = "Assign Action Script"))
-	bool AssignActionScript(TSubclassOf<UPlayerActionScript> Script, const bool ForceOverride);
+	void AssignActionScript(TSubclassOf<UPlayerActionScript> Script, const bool ForceOverride);
 	
 protected:
 	// Called when the game starts.

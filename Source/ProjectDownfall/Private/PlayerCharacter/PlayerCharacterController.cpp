@@ -5,6 +5,7 @@
 
 #include "PlayerActionScript.h"
 #include "PlayerCharacter.h"
+#include "PlayerSubsystem.h"
 #include "ProjectDownfall/ProjectDownfall.h"
 
 #define CHECK_INPUT_CONDITIONS if(!CanProcessInput || !ActionScript){return;}
@@ -80,11 +81,11 @@ void APlayerCharacterController::HandleCReleased()
 
 
 
-bool APlayerCharacterController::AssignActionScript(TSubclassOf<UPlayerActionScript> Script, const bool ForceOverride)
+void APlayerCharacterController::AssignActionScript(TSubclassOf<UPlayerActionScript> Script, const bool ForceOverride)
 {
 	if(!Script)
 	{
-		return false;
+		return;
 	}
 
 	PendingActionScript = NewObject<UPlayerActionScript>(this, Script);
@@ -99,10 +100,12 @@ bool APlayerCharacterController::AssignActionScript(TSubclassOf<UPlayerActionScr
 		ActionScript = PendingActionScript;
 		PendingActionScript = nullptr;
 
+		ActionScript->InitializeScript(this, PlayerCharacter);
+
 		const FString ScriptName {Script->GetName()};
 		UE_LOG(LogPlayerCharacterController, Log, TEXT("Succesfully asigned ActionScript %s to PlayerController."), *ScriptName)
-
-		return true;
+		
+		return;
 	}
 
 	if(ActionScript)
@@ -110,8 +113,12 @@ bool APlayerCharacterController::AssignActionScript(TSubclassOf<UPlayerActionScr
 		ActionScript->StopActionScript();
 		ActionScript->OnScriptRelease.AddDynamic(this, &APlayerCharacterController::HandleScriptRelease);
 	}
-	
-	return false;
+	else
+	{
+		ActionScript = PendingActionScript;
+		PendingActionScript = nullptr;
+		ActionScript->InitializeScript(this, PlayerCharacter);
+	}
 }
 
 void APlayerCharacterController::HandleScriptRelease()
@@ -120,6 +127,7 @@ void APlayerCharacterController::HandleScriptRelease()
 	{
 		ActionScript = PendingActionScript;
 		PendingActionScript = nullptr;
+		ActionScript->InitializeScript(this, PlayerCharacter);
 	}
 }
 
@@ -132,6 +140,13 @@ void APlayerCharacterController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 	PlayerCharacter = Cast<APlayerCharacter>(InPawn);
+	if(UWorld* World {GetWorld()})
+	{
+		if(World->GetSubsystem<UPlayerSubsystem>())
+		{
+			World->GetSubsystem<UPlayerSubsystem>()->RegisterController(this);
+		}
+	}
 }
 
 

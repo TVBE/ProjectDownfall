@@ -64,13 +64,13 @@ public:
 	/** The Longitudinal input of the player.
 	 *	@Value The axis value of the input.
 	 */
-	UFUNCTION(BlueprintNativeEvent, Category = "ActionScript|Input", Meta = (DisplayName = "Handle Longitudinal Input"))
+	UFUNCTION(BlueprintNativeEvent, Category = "ActionScript|Input", Meta = (DisplayName = "Longitudinal Input"))
 	void EventLongitudinalInput(float Value);
 	
 	/** The Lateral input of the player.
 	 *	@Value The axis value of the input.
 	 */
-	UFUNCTION(BlueprintNativeEvent, Category = "ActionScript|Input", Meta = (DisplayName = "Handle Lateral Input"))
+	UFUNCTION(BlueprintNativeEvent, Category = "ActionScript|Input", Meta = (DisplayName = "Lateral Input"))
 	void EventLateralInput(float Value);
 
 	/** Called when the player presses or releases the spacebar input action. */
