@@ -3,8 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PlayerCharacter.h"
-#include "UObject/NoExportTypes.h"
+#include "PlayerCharacterConfiguration.h"
 #include "PlayerActionScript.generated.h"
 
 class APlayerCharacter;
@@ -21,7 +20,6 @@ class UPlayerActionScript : public UObject
 	GENERATED_BODY()
 	
 public:
-	
 	/** The event delegate for when the script has released itself. */
 	UPROPERTY(BlueprintAssignable, Category = "ActionScript", Meta = (DisplayName = "Event Release"))
 	FScriptReleaseDelegate OnScriptRelease;
@@ -38,6 +36,11 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "ActionScript", Meta = (DisplayName = "Destroy After Stop"))
 	bool DestroyAfterRelease {true};
 
+protected:
+	/** General character configuration settings for this script. */
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ActionScript|Configuration", Meta = (DisplayName = "Input Configuration"))
+	FPlayerCharacterConfiguration CharacterConfiguration;
+	
 private:
 	/** Pointer to the player controller. */
 	UPROPERTY(BlueprintGetter = GetPlayerCharacterController, Category = "ActionScript", Meta = (DisplayName = "Player Character Controller"))
