@@ -9,6 +9,8 @@
 class APlayerController;
 class UPlayerActionScript;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FActionScriptSwitchCallback, UPlayerActionScript*, NewScript, UPlayerActionScript*, OldScript);
+
 /**
  * 
  */
@@ -18,6 +20,10 @@ class APlayerCharacterController : public APlayerController
 	GENERATED_BODY()
 
 public:
+	/** Event Delegate for when an action script is switched */
+	UPROPERTY(BlueprintAssignable, Category = "PlayerController", Meta = (DisplayName = "On Action Script Changed"))
+	FActionScriptSwitchCallback OnActionScriptChanged;
+	
 	/** When true, the player controller can process user input. */
 	UPROPERTY(BlueprintReadOnly, Category = "PlayerController", Meta = (DisplayName = "Can Process Input"))
 	bool CanProcessInput {true};

@@ -79,8 +79,6 @@ void APlayerCharacterController::HandleCReleased()
 	ActionScript->EventC(false);
 }
 
-
-
 void APlayerCharacterController::AssignActionScript(TSubclassOf<UPlayerActionScript> Script, const bool ForceOverride)
 {
 	if(!Script)
@@ -92,6 +90,7 @@ void APlayerCharacterController::AssignActionScript(TSubclassOf<UPlayerActionScr
 	
 	if(ForceOverride)
 	{
+		UPlayerActionScript* OldScript {ActionScript};
 		if(ActionScript)
 		{
 			ActionScript->ConditionalBeginDestroy();
@@ -102,6 +101,8 @@ void APlayerCharacterController::AssignActionScript(TSubclassOf<UPlayerActionScr
 
 		ActionScript->InitializeScript(this, PlayerCharacter);
 
+		OnActionScriptChanged.Broadcast(ActionScript, OldScript);
+		
 		const FString ScriptName {Script->GetName()};
 		UE_LOG(LogPlayerCharacterController, Log, TEXT("Succesfully asigned ActionScript %s to PlayerController."), *ScriptName)
 		
@@ -118,6 +119,7 @@ void APlayerCharacterController::AssignActionScript(TSubclassOf<UPlayerActionScr
 		ActionScript = PendingActionScript;
 		PendingActionScript = nullptr;
 		ActionScript->InitializeScript(this, PlayerCharacter);
+		OnActionScriptChanged.Broadcast(ActionScript, nullptr);
 	}
 }
 
@@ -125,9 +127,11 @@ void APlayerCharacterController::HandleScriptRelease()
 {
 	if(PendingActionScript)
 	{
+		UPlayerActionScript* OldScript {ActionScript};
 		ActionScript = PendingActionScript;
 		PendingActionScript = nullptr;
 		ActionScript->InitializeScript(this, PlayerCharacter);
+		OnActionScriptChanged.Broadcast(ActionScript, OldScript);
 	}
 }
 
